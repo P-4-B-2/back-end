@@ -15,7 +15,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag daansterckx/P4B2-api:latest
+      run: docker build . --file Dockerfile --tag daansterckx/p4b2-api:latest
     - name: login docker hub
       run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
 
