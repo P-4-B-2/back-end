@@ -1,3 +1,8 @@
+
+# .NET Core build results
+bin/
+obj/
+
 HELP.md
 target/
 !.mvn/wrapper/maven-wrapper.jar
@@ -25,21 +30,30 @@ target/
 .springBeans
 .sts4-cache
 
-### IntelliJ IDEA ###
-.idea
-*.iws
-*.iml
-*.ipr
 
-### NetBeans ###
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
-build/
-!**/src/main/**/build/
-!**/src/test/**/build/
-
-### VS Code ###
+# User-specific files
+.vs/
+.vsconfig
 .vscode/
+
+# User-specific Visual Studio files
+*.user
+*.userosscache
+*.suo
+*.userprefs
+
+# ASP.NET Core specific files
+project.lock.json
+project.fragment.lock.json
+
+# .NET Core tool folders
+!.dotnet/
+
+# Windows Installer files
+*.cab
+*.msi
+*.msm
+*.msp
+
+# JetBrains Rider
+.idea/
