@@ -27,3 +27,10 @@ provider "azurerm" {
 # provider "docker" {
 #   host = "unix://${var.docker_sock}"
 # }
+
+provider "google" {
+  project = "{{YOUR GCP PROJECT}}"
+  region  = "us-central1"
+  zone    = "us-central1-c"
+  credentials = "{{CREDENTIALS GO HERE}}"
+}
