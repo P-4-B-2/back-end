@@ -3,7 +3,19 @@ target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
+
+### Environment Variables ###
 .env
+
+### Terraform ###
+.terraform*
+/.terraform
+*tfvars
+*tfstate
+**/.terraform/*
+*.tfstate
+*.tfstate.*
+
 ### STS ###
 .apt_generated
 .classpath
