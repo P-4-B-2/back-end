@@ -8,11 +8,11 @@ namespace EventsBotAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class LocationController : ControllerBase
+    public class LocationsController : ControllerBase
     {
         private readonly IGenericRepository<Location> _locationRepository;
 
-        public LocationController(IGenericRepository<Location> locationRepository)
+        public LocationsController(IGenericRepository<Location> locationRepository)
         {
             _locationRepository = locationRepository;
         }

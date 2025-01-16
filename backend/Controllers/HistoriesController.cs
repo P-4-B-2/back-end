@@ -8,11 +8,11 @@ namespace EventsBotAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class HistoryController : ControllerBase
+    public class HistoriesController : ControllerBase
     {
         private readonly IGenericRepository<History> _historyRepository;
 
-        public HistoryController(IGenericRepository<History> historyRepository)
+        public HistoriesController(IGenericRepository<History> historyRepository)
         {
             _historyRepository = historyRepository;
         }
