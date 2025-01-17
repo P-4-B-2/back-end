@@ -109,6 +109,15 @@ namespace backend.DAL.Data
                     sentiment = 0,
                     summary = "Second conversation summary",
                     BenchId = 2
+                }, 
+                new Conversation
+                {
+                    Id = 3,
+                    start_datetime = new DateTime(2025, 01, 02, 12, 0, 0),
+                    end_datetime = new DateTime(2025, 01, 02, 12, 20, 0),
+                    sentiment = 0,
+                    summary = "Third conversation summary",
+                    BenchId = 2
                 }
             );
 
@@ -129,6 +138,30 @@ namespace backend.DAL.Data
                     made_at = new DateTime(2025, 01, 01, 9, 5, 0),
                     is_active = true,
                     order_number = 2
+                },
+                new Question
+                {
+                    Id = 3,
+                    Text = "Do you think that our townhall is modern enough?",
+                    made_at = new DateTime(2025, 01, 01, 9, 8, 0),
+                    is_active = false,
+                    order_number = 3
+                },
+                new Question
+                {
+                    Id = 4,
+                    Text = "Does our local park need a new extention?",
+                    made_at = new DateTime(2025, 01, 02, 9, 8, 0),
+                    is_active = false,
+                    order_number = 4
+                },
+                new Question
+                {
+                    Id = 5,
+                    Text = "What do you think of our local museum?",
+                    made_at = new DateTime(2025, 01, 03, 9, 8, 0),
+                    is_active = false,
+                    order_number = 5
                 }
             );
 
