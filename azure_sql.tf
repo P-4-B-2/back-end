@@ -8,7 +8,7 @@ resource "azurerm_resource_group" "p4_rg" {
 }
 
 resource "azurerm_mssql_server" "p4_server" {
-  name                         = "p4-server"
+  name                         = var.sql_server
   resource_group_name          = azurerm_resource_group.p4_rg.name
   location                     = var.azure_location
   version                      = "12.0"
@@ -23,7 +23,7 @@ resource "azurerm_mssql_server" "p4_server" {
 }
 
 resource "azurerm_mssql_database" "p4_sql_database" {
-  name                = "SQL Database"
+  name                = var.sql_database
   server_id           = azurerm_mssql_server.p4_server.id
   collation           = "SQL_Latin1_General_CP1_CI_AS"
   # license_type        = "LicenseIncluded"
