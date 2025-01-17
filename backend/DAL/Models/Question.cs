@@ -15,7 +15,7 @@ namespace backend.DAL.Models
         public int order_number { get; set; }
 
         [JsonIgnore]
-        public ICollection<Answer> Answers { get; set; } = new List<Answer>();
+        public ICollection<Answer>? Answers { get; set; }
 
     }
 }
