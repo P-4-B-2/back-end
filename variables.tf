@@ -8,3 +8,5 @@ variable "azure_location" {}
 
 variable "sql_admin" {}
 variable "sql_password" {}
+variable "sql_server" {}
+variable "sql_database" {}
