@@ -50,5 +50,11 @@ namespace backend.DAL.Repository
         {
             await _context.SaveChangesAsync();
         }
+
+        public async Task<IEnumerable<T>> GetByCondition(Func<T, bool> predicate)
+        {
+            return await Task.Run(() => _context.Set<T>().Where(predicate).ToList());
+        }
+
     }
 }

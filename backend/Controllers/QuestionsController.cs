@@ -28,6 +28,18 @@ namespace EventsBotAPI.Controllers
             return Ok(questions);
         }
 
+        [HttpGet("active")]
+        public async Task<ActionResult<IEnumerable<Question>>> GetActiveQuestions()
+        {
+            var activeQuestions = await _questionRepository.GetByCondition(q => q.is_active);
+            if (activeQuestions == null || !activeQuestions.Any())
+            {
+                return NotFound();
+            }
+            return Ok(activeQuestions);
+        }
+
+
         [HttpGet("{id}")]
         public async Task<ActionResult<Question>> GetQuestion(int id)
         {

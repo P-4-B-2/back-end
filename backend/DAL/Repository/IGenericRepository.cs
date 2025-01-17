@@ -8,5 +8,7 @@
         Task Delete(int id);
         Task Update(T obj);
         Task Save();
+        Task<IEnumerable<T>> GetByCondition(Func<T, bool> predicate);
+
     }
 }
