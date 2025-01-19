@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using backend.DAL.Models;
 using backend.DAL.Repository;
+using Microsoft.AspNetCore.Authorization;
 
-namespace EventsBotAPI.Controllers
+namespace backend.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class QuestionsController : ControllerBase
     {
         private readonly IGenericRepository<Question> _questionRepository;

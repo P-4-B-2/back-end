@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using backend.DAL.Models;
 using backend.DAL.Repository;
+using Microsoft.AspNetCore.Authorization;
 
-namespace EventsBotAPI.Controllers
+namespace backend.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class BenchesController : ControllerBase
