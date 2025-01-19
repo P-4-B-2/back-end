@@ -4,6 +4,8 @@ using System.Threading.Tasks;
 using backend.DAL.Models;
 using backend.DAL.Repository;
 using Microsoft.AspNetCore.Authorization;
+using AutoMapper;
+using backend.DTOs;
 
 namespace backend.Controllers
 {
@@ -13,50 +15,57 @@ namespace backend.Controllers
     public class LocationsController : ControllerBase
     {
         private readonly IGenericRepository<Location> _locationRepository;
+        private readonly IMapper _mapper;
 
-        public LocationsController(IGenericRepository<Location> locationRepository)
+        public LocationsController(IGenericRepository<Location> locationRepository, IMapper mapper)
         {
             _locationRepository = locationRepository;
+            _mapper = mapper;
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Location>>> GetLocations()
+        public async Task<ActionResult<IEnumerable<LocationDTO>>> GetLocations()
         {
             var locations = await _locationRepository.GetAll();
-            if (locations == null)
+            if (locations == null || !locations.Any())
             {
                 return NotFound();
             }
-            return Ok(locations);
+            var location_ = _mapper.Map<IEnumerable<LocationDTO>>(locations);
+            return Ok(location_);
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Location>> GetLocation(int id)
+        public async Task<ActionResult<LocationDTO>> GetLocation(int id)
         {
             var location = await _locationRepository.GetByID(id);
             if (location == null)
             {
                 return NotFound();
             }
-            return Ok(location);
+            var location_ = _mapper.Map<LocationDTO>(location);
+            return Ok(location_);
         }
 
         [HttpPost]
-        public async Task<ActionResult<Location>> PostLocation(Location location)
+        public async Task<ActionResult<LocationDTO>> PostLocation(LocationDTO locationDTO)
         {
+            var location = _mapper.Map<Location>(locationDTO);
             await _locationRepository.Insert(location);
             await _locationRepository.Save();
 
-            return CreatedAtAction(nameof(GetLocation), new { id = location.Id }, location);
+            var result_ = _mapper.Map<LocationDTO>(location);
+            return CreatedAtAction(nameof(GetLocation), new { id = location.Id }, result_);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutLocation(int id, Location location)
+        public async Task<IActionResult> PutLocation(int id, LocationDTO locationDTO)
         {
-            if (id != location.Id)
+            if (id != locationDTO.Id)
             {
                 return BadRequest();
             }
+            var location = _mapper.Map<Location>(locationDTO);
 
             try
             {
@@ -67,7 +76,6 @@ namespace backend.Controllers
             {
                 return NotFound();
             }
-
             return NoContent();
         }
 
@@ -79,10 +87,8 @@ namespace backend.Controllers
             {
                 return NotFound();
             }
-
             await _locationRepository.Delete(id);
             await _locationRepository.Save();
-
             return NoContent();
         }
     }

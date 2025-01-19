@@ -30,6 +30,12 @@ namespace backend.Firebase
             {
                 var decodedToken = await FirebaseAuth.DefaultInstance.VerifyIdTokenAsync(token);
 
+                DateTime expired = DateTimeOffset.FromUnixTimeSeconds(decodedToken.ExpirationTimeSeconds).DateTime;
+                if (expired < DateTime.UtcNow)
+                {
+                    return AuthenticateResult.Fail("Bearer Token has expired!");
+                }
+
                 var claims = new List<Claim>
                 {
                     new Claim(ClaimTypes.NameIdentifier, decodedToken.Uid),
@@ -41,6 +47,10 @@ namespace backend.Firebase
                 var ticket = new AuthenticationTicket(principal, Scheme.Name);
 
                 return AuthenticateResult.Success(ticket);
+            }
+            catch (FirebaseAuthException ex)
+            {
+                return AuthenticateResult.Fail($"Firebase auth failed: {ex.Message}");
             }
             catch (Exception ex)
             {

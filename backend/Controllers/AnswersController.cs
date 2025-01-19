@@ -4,6 +4,8 @@ using System.Threading.Tasks;
 using backend.DAL.Models;
 using backend.DAL.Repository;
 using Microsoft.AspNetCore.Authorization;
+using AutoMapper;
+using backend.DTOs;
 
 namespace backend.Controllers
 {
@@ -13,50 +15,57 @@ namespace backend.Controllers
     public class AnswersController : ControllerBase
     {
         private readonly IGenericRepository<Answer> _answerRepository;
+        private readonly IMapper _mapper;
 
-        public AnswersController(IGenericRepository<Answer> answerRepository)
+        public AnswersController(IGenericRepository<Answer> answerRepository, IMapper mapper)
         {
             _answerRepository = answerRepository;
+            _mapper = mapper;
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Answer>>> GetAnswers()
+        public async Task<ActionResult<IEnumerable<AnswerDTO>>> GetAnswers()
         {
             var answers = await _answerRepository.GetAll();
-            if (answers == null)
+            if (answers == null || !answers.Any())
             {
                 return NotFound();
             }
-            return Ok(answers);
+            var answer_ = _mapper.Map<IEnumerable<AnswerDTO>>(answers);
+            return Ok(answer_);
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Answer>> GetAnswer(int id)
+        public async Task<ActionResult<AnswerDTO>> GetAnswer(int id)
         {
             var answer = await _answerRepository.GetByID(id);
             if (answer == null)
             {
                 return NotFound();
             }
-            return Ok(answer);
+            var answer_ = _mapper.Map<AnswerDTO>(answer);
+            return Ok(answer_);
         }
 
         [HttpPost]
-        public async Task<ActionResult<Answer>> PostAnswer(Answer answer)
+        public async Task<ActionResult<AnswerDTO>> PostAnswer(AnswerDTO answerDTO)
         {
+            var answer = _mapper.Map<Answer>(answerDTO);
             await _answerRepository.Insert(answer);
             await _answerRepository.Save();
 
-            return CreatedAtAction(nameof(GetAnswer), new { id = answer.Id }, answer);
+            var result = _mapper.Map<AnswerDTO>(answer);
+            return CreatedAtAction(nameof(GetAnswer), new { id = answer.Id }, result);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutAnswer(int id, Answer answer)
+        public async Task<IActionResult> PutAnswer(int id, AnswerDTO answerDTO)
         {
-            if (id != answer.Id)
+            if (id != answerDTO.Id)
             {
                 return BadRequest();
             }
+            var answer = _mapper.Map<Answer>(answerDTO);
 
             try
             {
@@ -67,7 +76,6 @@ namespace backend.Controllers
             {
                 return NotFound();
             }
-
             return NoContent();
         }
 
@@ -79,10 +87,8 @@ namespace backend.Controllers
             {
                 return NotFound();
             }
-
             await _answerRepository.Delete(id);
             await _answerRepository.Save();
-
             return NoContent();
         }
     }

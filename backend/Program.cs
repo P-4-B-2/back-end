@@ -7,16 +7,20 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Authentication;
 using backend.Firebase;
+using backend.Mapping;
 
 var builder = WebApplication.CreateBuilder(args);
 
 FirebaseApp.Create(new AppOptions
 {
+    // TODO: via .ENV file, but for testing this is fine
     Credential = GoogleCredential.FromFile("./firebase-config.json")
 });
 
 builder.Services.AddAuthentication("Firebase")
     .AddScheme<AuthenticationSchemeOptions, FirebaseAuthenticationHandler>("Firebase", null);
+
+builder.Services.AddAutoMapper(typeof(MappingProfile));
 
 // Add services to the container.
 builder.Services.AddControllers();

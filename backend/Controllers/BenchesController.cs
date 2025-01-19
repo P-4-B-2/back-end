@@ -4,6 +4,8 @@ using System.Threading.Tasks;
 using backend.DAL.Models;
 using backend.DAL.Repository;
 using Microsoft.AspNetCore.Authorization;
+using AutoMapper;
+using backend.DTOs;
 
 namespace backend.Controllers
 {
@@ -13,50 +15,57 @@ namespace backend.Controllers
     public class BenchesController : ControllerBase
     {
         private readonly IGenericRepository<Bench> _benchRepository;
+        private readonly IMapper _mapper;
 
-        public BenchesController(IGenericRepository<Bench> benchRepository)
+        public BenchesController(IGenericRepository<Bench> benchRepository, IMapper mapper)
         {
             _benchRepository = benchRepository;
+            _mapper = mapper;
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Bench>>> GetBenches()
+        public async Task<ActionResult<IEnumerable<BenchDTO>>> GetBenches()
         {
             var benches = await _benchRepository.GetAll();
-            if (benches == null)
+            if (benches == null || !benches.Any())
             {
                 return NotFound();
             }
-            return Ok(benches);
+            var bench_ = _mapper.Map<IEnumerable<BenchDTO>>(benches);
+            return Ok(bench_);
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Bench>> GetBench(int id)
+        public async Task<ActionResult<BenchDTO>> GetBench(int id)
         {
             var bench = await _benchRepository.GetByID(id);
             if (bench == null)
             {
                 return NotFound();
             }
-            return Ok(bench);
+            var bench_ = _mapper.Map<BenchDTO>(bench);
+            return Ok(bench_);
         }
 
         [HttpPost]
-        public async Task<ActionResult<Bench>> PostBench(Bench bench)
+        public async Task<ActionResult<BenchDTO>> PostBench(BenchDTO benchDTO)
         {
+            var bench = _mapper.Map<Bench>(benchDTO);
             await _benchRepository.Insert(bench);
             await _benchRepository.Save();
 
-            return CreatedAtAction(nameof(GetBench), new { id = bench.Id }, bench);
+            var result_ = _mapper.Map<BenchDTO>(bench);
+            return CreatedAtAction(nameof(GetBench), new { id = bench.Id }, result_);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutBench(int id, Bench bench)
+        public async Task<IActionResult> PutBench(int id, BenchDTO benchDTO)
         {
-            if (id != bench.Id)
+            if (id != benchDTO.Id)
             {
                 return BadRequest();
             }
+            var bench = _mapper.Map<Bench>(benchDTO);
 
             try
             {
@@ -67,7 +76,6 @@ namespace backend.Controllers
             {
                 return NotFound();
             }
-
             return NoContent();
         }
 
@@ -79,10 +87,8 @@ namespace backend.Controllers
             {
                 return NotFound();
             }
-
             await _benchRepository.Delete(id);
             await _benchRepository.Save();
-
             return NoContent();
         }
     }

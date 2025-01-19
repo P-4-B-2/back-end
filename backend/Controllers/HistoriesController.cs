@@ -4,6 +4,8 @@ using System.Threading.Tasks;
 using backend.DAL.Models;
 using backend.DAL.Repository;
 using Microsoft.AspNetCore.Authorization;
+using AutoMapper;
+using backend.DTOs;
 
 namespace backend.Controllers
 {
@@ -13,50 +15,57 @@ namespace backend.Controllers
     public class HistoriesController : ControllerBase
     {
         private readonly IGenericRepository<History> _historyRepository;
+        private readonly IMapper _mapper;
 
-        public HistoriesController(IGenericRepository<History> historyRepository)
+        public HistoriesController(IGenericRepository<History> historyRepository, IMapper mapper)
         {
             _historyRepository = historyRepository;
+            _mapper = mapper;
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<History>>> GetHistories()
+        public async Task<ActionResult<IEnumerable<HistoryDTO>>> GetHistories()
         {
             var histories = await _historyRepository.GetAll();
-            if (histories == null)
+            if (histories == null || !histories.Any())
             {
                 return NotFound();
             }
-            return Ok(histories);
+            var history_ = _mapper.Map<IEnumerable<HistoryDTO>>(histories);
+            return Ok(history_);
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<History>> GetHistory(int id)
+        public async Task<ActionResult<HistoryDTO>> GetHistory(int id)
         {
             var history = await _historyRepository.GetByID(id);
             if (history == null)
             {
                 return NotFound();
             }
-            return Ok(history);
+            var history_ = _mapper.Map<HistoryDTO>(history);
+            return Ok(history_);
         }
 
         [HttpPost]
-        public async Task<ActionResult<History>> PostHistory(History history)
+        public async Task<ActionResult<HistoryDTO>> PostHistory(HistoryDTO historyDTO)
         {
+            var history = _mapper.Map<History>(historyDTO);
             await _historyRepository.Insert(history);
             await _historyRepository.Save();
 
-            return CreatedAtAction(nameof(GetHistory), new { id = history.Id }, history);
+            var result_ = _mapper.Map<HistoryDTO>(history);
+            return CreatedAtAction(nameof(GetHistory), new { id = history.Id }, result_);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutHistory(int id, History history)
+        public async Task<IActionResult> PutHistory(int id, HistoryDTO historyDTO)
         {
-            if (id != history.Id)
+            if (id != historyDTO.Id)
             {
                 return BadRequest();
             }
+            var history = _mapper.Map<History>(historyDTO);
 
             try
             {
@@ -67,7 +76,6 @@ namespace backend.Controllers
             {
                 return NotFound();
             }
-
             return NoContent();
         }
 
@@ -79,10 +87,8 @@ namespace backend.Controllers
             {
                 return NotFound();
             }
-
             await _historyRepository.Delete(id);
             await _historyRepository.Save();
-
             return NoContent();
         }
     }
