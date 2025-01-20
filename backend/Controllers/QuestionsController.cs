@@ -3,70 +3,84 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using backend.DAL.Models;
 using backend.DAL.Repository;
+using Microsoft.AspNetCore.Authorization;
+using backend.DTOs;
+using AutoMapper;
 
-namespace EventsBotAPI.Controllers
+namespace backend.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class QuestionsController : ControllerBase
     {
         private readonly IGenericRepository<Question> _questionRepository;
+        private readonly IMapper _mapper;
 
-        public QuestionsController(IGenericRepository<Question> questionRepository)
+        public QuestionsController(IGenericRepository<Question> questionRepository, IMapper mapper)
         {
             _questionRepository = questionRepository;
+            _mapper = mapper;
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Question>>> GetQuestions()
+        public async Task<ActionResult<IEnumerable<QuestionDTO>>> GetQuestions()
         {
             var questions = await _questionRepository.GetAll();
             if (questions == null)
             {
                 return NotFound();
             }
-            return Ok(questions);
+            var questions_ = _mapper.Map<IEnumerable<QuestionDTO>>(questions);
+            return Ok(questions_);
         }
 
         [HttpGet("active")]
-        public async Task<ActionResult<IEnumerable<Question>>> GetActiveQuestions()
+        public async Task<ActionResult<IEnumerable<QuestionDTO>>> GetActiveQuestions()
         {
             var activeQuestions = await _questionRepository.GetByCondition(q => q.is_active);
             if (activeQuestions == null || !activeQuestions.Any())
             {
                 return NotFound();
             }
-            return Ok(activeQuestions);
+            var activeQuestions_ = _mapper.Map<IEnumerable<QuestionDTO>>(activeQuestions);
+            return Ok(activeQuestions_);
         }
 
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Question>> GetQuestion(int id)
+        public async Task<ActionResult<QuestionDTO>> GetQuestion(int id)
         {
             var question = await _questionRepository.GetByID(id);
             if (question == null)
             {
                 return NotFound();
             }
-            return Ok(question);
+            var question_ = _mapper.Map<QuestionDTO>(question);
+            return Ok(question_);
         }
 
         [HttpPost]
-        public async Task<ActionResult<Question>> PostQuestion(Question question)
+        public async Task<ActionResult<QuestionDTO>> PostQuestion(QuestionDTO questionDTO)
         {
+            var question = _mapper.Map<Question>(questionDTO);
+
             await _questionRepository.Insert(question);
             await _questionRepository.Save();
 
-            return CreatedAtAction(nameof(GetQuestion), new { id = question.Id }, question);
+            var result = _mapper.Map<QuestionDTO>(question);
+            return CreatedAtAction(nameof(GetQuestion), new { id = question.Id }, result);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutQuestion(int id, Question question)
+        public async Task<IActionResult> PutQuestion(int id, QuestionDTO questionDTO)
         {
-            if (id != question.Id)
+            if (id != questionDTO.Id)
             {
                 return BadRequest();
             }
+
+            var question = _mapper.Map<Question>(questionDTO);
 
             try
             {
