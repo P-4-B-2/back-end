@@ -32,7 +32,7 @@ jobs:
       - name: Install Swashbuckle CLI .NET Global Tool
         run: dotnet tool install --global Swashbuckle.AspNetCore.Cli --version ${{ env.SWASHBUCLE_ASPNET_CORE_CLI_PACKAGE_VERSION }}
       - name: Install AutoMapper CLI .NET Global Tool
-        run: dotnet add package --global AutoMapper --version 13.0.1
+        run: dotnet add package AutoMapper --version 13.0.1
       - name: Restore
         run: dotnet restore ${{ env.WORKING_DIRECTORY }}
       - name: Build
