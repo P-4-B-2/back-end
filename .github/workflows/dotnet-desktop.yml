@@ -46,9 +46,6 @@ jobs:
       - name: Restore tool
         run: dotnet tool restore
         working-directory: ${{ env.WORKING_DIRECTORY }}
-      - name: Generate Swagger JSON
-        run: dotnet swagger tofile --output ${{ github.workspace }}/backend/publish/swagger.json ${{ env.API_IMPORT_DLL }} ${{ env.API_IMPORT_VERSION }}
-        working-directory: ${{ env.WORKING_DIRECTORY }}
       - name: Publish Artifacts
         uses: actions/upload-artifact@v4
         with:
