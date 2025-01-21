@@ -59,7 +59,7 @@ namespace backend.DAL.Data
                 .WithOne(a => a.Question)
                 .HasForeignKey(a => a.QuestionId);
 
-            SeedData.Apply(modelBuilder);
+            // SeedData.Apply(modelBuilder);
 
             base.OnModelCreating(modelBuilder);
         }
