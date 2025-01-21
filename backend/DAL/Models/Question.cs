@@ -10,8 +10,8 @@ namespace backend.DAL.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public string Text { get; set; }
-        public DateTime made_at { get; set; }
-        public bool is_active { get; set; } 
+        public DateTime MadeAt { get; set; }
+        public bool IsActive { get; set; }
         public int order_number { get; set; }
 
         [JsonIgnore]

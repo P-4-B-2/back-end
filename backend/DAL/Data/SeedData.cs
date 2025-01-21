@@ -69,40 +69,40 @@ namespace backend.DAL.Data
                 {
                     Id = 1,
                     Text = "What do you think about this neighbourhood?",
-                    made_at = new DateTime(2025, 01, 01, 9, 0, 0),
-                    is_active = true,
+                    MadeAt = new DateTime(2025, 01, 01, 9, 0, 0),
+                    IsActive = true,
                     order_number = 1
                 },
                 new Question
                 {
                     Id = 2,
                     Text = "What new features do you think this village need?",
-                    made_at = new DateTime(2025, 01, 01, 9, 5, 0),
-                    is_active = true,
+                    MadeAt = new DateTime(2025, 01, 01, 9, 5, 0),
+                    IsActive = true,
                     order_number = 2
                 },
                 new Question
                 {
                     Id = 3,
                     Text = "Do you think that our townhall is modern enough?",
-                    made_at = new DateTime(2025, 01, 01, 9, 8, 0),
-                    is_active = false,
+                    MadeAt = new DateTime(2025, 01, 01, 9, 8, 0),
+                    IsActive = false,
                     order_number = 3
                 },
                 new Question
                 {
                     Id = 4,
                     Text = "Does our local park need a new extention?",
-                    made_at = new DateTime(2025, 01, 02, 9, 8, 0),
-                    is_active = false,
+                    MadeAt = new DateTime(2025, 01, 02, 9, 8, 0),
+                    IsActive = false,
                     order_number = 4
                 },
                 new Question
                 {
                     Id = 5,
                     Text = "What do you think of our local museum?",
-                    made_at = new DateTime(2025, 01, 03, 9, 8, 0),
-                    is_active = false,
+                    MadeAt = new DateTime(2025, 01, 03, 9, 8, 0),
+                    IsActive = false,
                     order_number = 5
                 }
             );

@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace backend.Migrations
 {
     /// <inheritdoc />
-    public partial class initial : Migration
+    public partial class test : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -92,9 +92,9 @@ namespace backend.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     start_datetime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    end_datetime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    sentiment = table.Column<int>(type: "int", nullable: false),
-                    summary = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    end_datetime = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    sentiment = table.Column<int>(type: "int", nullable: true),
+                    summary = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     BenchId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -191,8 +191,11 @@ namespace backend.Migrations
                 columns: new[] { "Id", "Text", "is_active", "made_at", "order_number" },
                 values: new object[,]
                 {
-                    { 1, "What is your name?", true, new DateTime(2025, 1, 1, 9, 0, 0, 0, DateTimeKind.Unspecified), 1 },
-                    { 2, "How can I help you?", true, new DateTime(2025, 1, 1, 9, 5, 0, 0, DateTimeKind.Unspecified), 2 }
+                    { 1, "What do you think about this neighbourhood?", true, new DateTime(2025, 1, 1, 9, 0, 0, 0, DateTimeKind.Unspecified), 1 },
+                    { 2, "What new features do you think this village need?", true, new DateTime(2025, 1, 1, 9, 5, 0, 0, DateTimeKind.Unspecified), 2 },
+                    { 3, "Do you think that our townhall is modern enough?", false, new DateTime(2025, 1, 1, 9, 8, 0, 0, DateTimeKind.Unspecified), 3 },
+                    { 4, "Does our local park need a new extention?", false, new DateTime(2025, 1, 2, 9, 8, 0, 0, DateTimeKind.Unspecified), 4 },
+                    { 5, "What do you think of our local museum?", false, new DateTime(2025, 1, 3, 9, 8, 0, 0, DateTimeKind.Unspecified), 5 }
                 });
 
             migrationBuilder.InsertData(
@@ -219,7 +222,8 @@ namespace backend.Migrations
                 values: new object[,]
                 {
                     { 1, 1, new DateTime(2025, 1, 1, 10, 30, 0, 0, DateTimeKind.Unspecified), 1, new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Unspecified), "First conversation summary" },
-                    { 2, 2, new DateTime(2025, 1, 2, 11, 20, 0, 0, DateTimeKind.Unspecified), 0, new DateTime(2025, 1, 2, 11, 0, 0, 0, DateTimeKind.Unspecified), "Second conversation summary" }
+                    { 2, 2, new DateTime(2025, 1, 2, 11, 20, 0, 0, DateTimeKind.Unspecified), 0, new DateTime(2025, 1, 2, 11, 0, 0, 0, DateTimeKind.Unspecified), "Second conversation summary" },
+                    { 3, 2, new DateTime(2025, 1, 2, 12, 20, 0, 0, DateTimeKind.Unspecified), 0, new DateTime(2025, 1, 2, 12, 0, 0, 0, DateTimeKind.Unspecified), "Third conversation summary" }
                 });
 
             migrationBuilder.InsertData(
@@ -236,8 +240,8 @@ namespace backend.Migrations
                 columns: new[] { "Id", "ConversationId", "QuestionId", "Response" },
                 values: new object[,]
                 {
-                    { 1, 1, 1, "My name is John." },
-                    { 2, 1, 2, "I need help with coding." }
+                    { 1, 1, 1, "It's nice and peaceful." },
+                    { 2, 1, 2, "Maybe more greens, vegetation would be nice." }
                 });
 
             migrationBuilder.CreateIndex(
