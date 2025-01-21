@@ -50,6 +50,15 @@ resource "azurerm_mssql_firewall_rule" "p4_sql_firewall_rule" {
   depends_on = [azurerm_mssql_server.p4_server]
 }
 
+resource "azurerm_mssql_firewall_rule" "allow_azure_resources" {
+  name                           = "Allow Azure Resources"
+  server_id                      = azurerm_mssql_server.p4_server.id
+  start_ip_address               = "0.0.0.0"
+  end_ip_address                 = "0.0.0.0"
+
+  depends_on = [azurerm_mssql_server.p4_server]
+}
+
 # Maintenance Configuration
 resource "azurerm_maintenance_configuration" "p4_sql_maintenance" {
   name                           = "SQL_Default"
