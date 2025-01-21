@@ -12,8 +12,8 @@ using backend.DAL.Data;
 namespace backend.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250117091944_Test-1")]
-    partial class Test1
+    [Migration("20250121094619_test")]
+    partial class test
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -108,17 +108,16 @@ namespace backend.Migrations
                     b.Property<int>("BenchId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("end_datetime")
+                    b.Property<DateTime?>("end_datetime")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("sentiment")
+                    b.Property<int?>("sentiment")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("start_datetime")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("summary")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");

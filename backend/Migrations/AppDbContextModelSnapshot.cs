@@ -105,17 +105,16 @@ namespace backend.Migrations
                     b.Property<int>("BenchId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("end_datetime")
+                    b.Property<DateTime?>("end_datetime")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("sentiment")
+                    b.Property<int?>("sentiment")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("start_datetime")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("summary")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -241,15 +240,15 @@ namespace backend.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("MadeAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Text")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("is_active")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime>("made_at")
-                        .HasColumnType("datetime2");
 
                     b.Property<int>("order_number")
                         .HasColumnType("int");
@@ -262,41 +261,41 @@ namespace backend.Migrations
                         new
                         {
                             Id = 1,
+                            IsActive = true,
+                            MadeAt = new DateTime(2025, 1, 1, 9, 0, 0, 0, DateTimeKind.Unspecified),
                             Text = "What do you think about this neighbourhood?",
-                            is_active = true,
-                            made_at = new DateTime(2025, 1, 1, 9, 0, 0, 0, DateTimeKind.Unspecified),
                             order_number = 1
                         },
                         new
                         {
                             Id = 2,
+                            IsActive = true,
+                            MadeAt = new DateTime(2025, 1, 1, 9, 5, 0, 0, DateTimeKind.Unspecified),
                             Text = "What new features do you think this village need?",
-                            is_active = true,
-                            made_at = new DateTime(2025, 1, 1, 9, 5, 0, 0, DateTimeKind.Unspecified),
                             order_number = 2
                         },
                         new
                         {
                             Id = 3,
+                            IsActive = false,
+                            MadeAt = new DateTime(2025, 1, 1, 9, 8, 0, 0, DateTimeKind.Unspecified),
                             Text = "Do you think that our townhall is modern enough?",
-                            is_active = false,
-                            made_at = new DateTime(2025, 1, 1, 9, 8, 0, 0, DateTimeKind.Unspecified),
                             order_number = 3
                         },
                         new
                         {
                             Id = 4,
+                            IsActive = false,
+                            MadeAt = new DateTime(2025, 1, 2, 9, 8, 0, 0, DateTimeKind.Unspecified),
                             Text = "Does our local park need a new extention?",
-                            is_active = false,
-                            made_at = new DateTime(2025, 1, 2, 9, 8, 0, 0, DateTimeKind.Unspecified),
                             order_number = 4
                         },
                         new
                         {
                             Id = 5,
+                            IsActive = false,
+                            MadeAt = new DateTime(2025, 1, 3, 9, 8, 0, 0, DateTimeKind.Unspecified),
                             Text = "What do you think of our local museum?",
-                            is_active = false,
-                            made_at = new DateTime(2025, 1, 3, 9, 8, 0, 0, DateTimeKind.Unspecified),
                             order_number = 5
                         });
                 });
