@@ -11,7 +11,7 @@ namespace backend.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class QuestionsController : ControllerBase
     {
         private readonly IGenericRepository<Question> _questionRepository;
@@ -38,7 +38,7 @@ namespace backend.Controllers
         [HttpGet("active")]
         public async Task<ActionResult<IEnumerable<QuestionDTO>>> GetActiveQuestions()
         {
-            var activeQuestions = await _questionRepository.GetByCondition(q => q.is_active);
+            var activeQuestions = await _questionRepository.GetByCondition(q => q.IsActive);
             if (activeQuestions == null || !activeQuestions.Any())
             {
                 return NotFound();
