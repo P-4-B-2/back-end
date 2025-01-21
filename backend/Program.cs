@@ -22,6 +22,21 @@ builder.Services.AddAuthentication("Firebase")
 
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.Authority = "https://securetoken.google.com/frank-de-pratende-bank";
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidIssuer = "https://securetoken.google.com/frank-de-pratende-bank",
+            ValidateAudience = true,
+            ValidAudience = "frank-de-pratende-bank",
+            ValidateLifetime = true
+        };
+    });
+
+
 // Add services to the container.
 builder.Services.AddControllers();
 
