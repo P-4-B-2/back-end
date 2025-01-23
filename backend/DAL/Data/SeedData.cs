@@ -71,7 +71,7 @@ namespace backend.DAL.Data
                     Text = "What do you think about this neighbourhood?",
                     MadeAt = new DateTime(2025, 01, 01, 9, 0, 0),
                     IsActive = true,
-                    order_number = 1
+                    OrderNumber = 1
                 },
                 new Question
                 {
@@ -79,7 +79,7 @@ namespace backend.DAL.Data
                     Text = "What new features do you think this village need?",
                     MadeAt = new DateTime(2025, 01, 01, 9, 5, 0),
                     IsActive = true,
-                    order_number = 2
+                    OrderNumber = 2
                 },
                 new Question
                 {
@@ -87,7 +87,7 @@ namespace backend.DAL.Data
                     Text = "Do you think that our townhall is modern enough?",
                     MadeAt = new DateTime(2025, 01, 01, 9, 8, 0),
                     IsActive = false,
-                    order_number = 3
+                    OrderNumber = 3
                 },
                 new Question
                 {
@@ -95,7 +95,7 @@ namespace backend.DAL.Data
                     Text = "Does our local park need a new extention?",
                     MadeAt = new DateTime(2025, 01, 02, 9, 8, 0),
                     IsActive = false,
-                    order_number = 4
+                    OrderNumber = 4
                 },
                 new Question
                 {
@@ -103,7 +103,7 @@ namespace backend.DAL.Data
                     Text = "What do you think of our local museum?",
                     MadeAt = new DateTime(2025, 01, 03, 9, 8, 0),
                     IsActive = false,
-                    order_number = 5
+                    OrderNumber = 5
                 }
             );
 

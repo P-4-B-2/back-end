@@ -12,7 +12,7 @@ namespace backend.DAL.Models
         public string Text { get; set; }
         public DateTime MadeAt { get; set; }
         public bool IsActive { get; set; }
-        public int order_number { get; set; }
+        public int OrderNumber { get; set; }
 
         [JsonIgnore]
         public ICollection<Answer>? Answers { get; set; }
