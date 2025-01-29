@@ -5,7 +5,7 @@ on:
     branches: [ bw-pipeline ] # replace with `main` after testing
 
 env:
-  AZURE_WEBAPP_PACKAGE_PATH: backend/bin/Release/publish
+  AZURE_WEBAPP_PACKAGE_PATH: backend/publish
   BICEP_FILE: infrastructure/main.bicep
   SWASHBUCLE_ASPNET_CORE_CLI_PACKAGE_VERSION: 5.6.3
   SWASHBUCKLE_DOTNET_CORE_VERSION: 8.0.x
@@ -30,8 +30,8 @@ jobs:
         run: |
           set -e
           RG_EXISTS=$(az group exists --name ${{ secrets.AZURE_RESOURCE_GROUP }})
-          APP_EXISTS=$(az webapp show --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }} --name ${{ secrets.AZURE_APP_SERVICE }} --query "id" --output tsv || echo "false")
-          DB_EXISTS=$(az sql db show --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }} --server ${{ secrets.AZURE_SQL_SERVER }} --name ${{ secrets.AZURE_DATABASE }} --query "id" --output tsv || echo "false")
+          APP_EXISTS=$(az webapp show --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }} --name ${{ secrets.AZURE_APP_SERVICE }} --query "id" --output tsv --only-show-errors || echo "false")
+          DB_EXISTS=$(az sql db show --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }} --server ${{ secrets.AZURE_SQL_SERVER }} --name ${{ secrets.AZURE_DATABASE }} --query "id" --output tsv --only-show-errors || echo "false")
 
           if [[ "$RG_EXISTS" == "false" || "$APP_EXISTS" == "false" || "$DB_EXISTS" == "false" ]]; then
             echo "PROVISION_REQUIRED=true" >> $GITHUB_OUTPUT
