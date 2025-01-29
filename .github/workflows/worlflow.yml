@@ -5,7 +5,7 @@ on:
     branches: [ bw-pipeline ] # replace with `main` after testing
 
 env:
-  AZURE_WEBAPP_PACKAGE_PATH: backend/bin/release/publish
+  AZURE_WEBAPP_PACKAGE_PATH: backend/bin/Release/publish
   BICEP_FILE: infrastructure/main.bicep
   SWASHBUCLE_ASPNET_CORE_CLI_PACKAGE_VERSION: 5.6.3
   SWASHBUCKLE_DOTNET_CORE_VERSION: 8.0.x
