@@ -1,7 +1,9 @@
+name: Trigger testflow
+
 on:
     push:
       branches:
-        - main
+        - bw-pipeline
    
 env:
     AZURE_WEBAPP_NAME: backend
