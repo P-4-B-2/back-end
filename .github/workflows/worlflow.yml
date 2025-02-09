@@ -103,20 +103,15 @@ jobs:
       - name: Install Swashbuckle CLI .NET Global Tool
         run: dotnet tool install --global Swashbuckle.AspNetCore.Cli --version ${{ env.SWASHBUCLE_ASPNET_CORE_CLI_PACKAGE_VERSION }}
       - name: Install AutoMapper CLI .NET Global Tool
-        working-directory: ${{ env.WORKING_DIRECTORY }}
-        run: dotnet add package AutoMapper --version 13.0.1
+        run: dotnet add ${{ env.WORKING_DIRECTORY }} package AutoMapper --version 13.0.1
       - name: Restore dependencies
-        working-directory: ${{ env.WORKING_DIRECTORY }}
-        run: dotnet restore
+        run: dotnet restore ${{ env.WORKING_DIRECTORY }}
       - name: Build
-        working-directory: ${{ env.WORKING_DIRECTORY }}
-        run: dotnet build --configuration ${{ env.CONFIGURATION }} --no-restore
+        run: dotnet build ${{ env.WORKING_DIRECTORY }} --configuration ${{ env.CONFIGURATION }} --no-restore
       - name: Test
-        working-directory: ${{ env.WORKING_DIRECTORY }}
-        run: dotnet test --no-build --verbosity normal
+        run: dotnet test ${{ env.WORKING_DIRECTORY }} --no-build --verbosity normal
       - name: Publish
-        working-directory: ${{ env.WORKING_DIRECTORY }}
-        run: dotnet publish --configuration ${{ env.CONFIGURATION }} --no-build --output ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+        run: dotnet publish ${{ env.WORKING_DIRECTORY }} --configuration ${{ env.CONFIGURATION }} --no-build --output ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
       - name: Publish Artifacts
         uses: actions/upload-artifact@v4
         with:
