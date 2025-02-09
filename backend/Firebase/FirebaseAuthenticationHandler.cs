@@ -9,6 +9,8 @@ namespace backend.Firebase
 {
     public class FirebaseAuthenticationHandler : AuthenticationHandler<AuthenticationSchemeOptions>
     {
+        private const string AiApiKey = "your-static-api-key";
+
         public FirebaseAuthenticationHandler(
             IOptionsMonitor<AuthenticationSchemeOptions> options,
             ILoggerFactory logger,
@@ -25,6 +27,21 @@ namespace backend.Firebase
             }
 
             string token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+
+            if (token == AiApiKey)
+            {
+                var claims = new List<Claim>
+                {
+                    new Claim(ClaimTypes.NameIdentifier, "AI"),
+                    new Claim(ClaimTypes.Role, "AI")
+                };
+
+                var identity = new ClaimsIdentity(claims, nameof(FirebaseAuthenticationHandler));
+                var principal = new ClaimsPrincipal(identity);
+                var ticket = new AuthenticationTicket(principal, Scheme.Name);
+
+                return AuthenticateResult.Success(ticket);
+            }
 
             try
             {
