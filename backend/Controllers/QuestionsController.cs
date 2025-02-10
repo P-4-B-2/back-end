@@ -64,6 +64,7 @@ namespace backend.Controllers
         public async Task<ActionResult<QuestionDTO>> PostQuestion(QuestionDTO questionDTO)
         {
             var question = _mapper.Map<Question>(questionDTO);
+            question.IsActive = true;
 
             await _questionRepository.Insert(question);
             await _questionRepository.Save();
@@ -104,7 +105,9 @@ namespace backend.Controllers
                 return NotFound();
             }
 
-            await _questionRepository.Delete(id);
+            question.IsActive = false;
+
+            await _questionRepository.Update(question);
             await _questionRepository.Save();
 
             return NoContent();
