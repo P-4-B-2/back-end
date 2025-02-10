@@ -46,7 +46,17 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
  
-builder.Services.AddCors();
+//builder.Services.AddCors(); 
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowFrontendLocalhost", builder =>
+    {
+        builder.WithOrigins("http://localhost:4200")
+               .AllowAnyMethod()
+               .AllowAnyHeader();
+    });
+});
 
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
@@ -59,6 +69,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseCors("AllowFrontendLocalhost");
 app.UseHttpsRedirection();
 
 app.UseAuthentication();

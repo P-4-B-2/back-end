@@ -47,6 +47,26 @@ namespace backend.Controllers
             return Ok(answer_);
         }
 
+        [HttpGet("conversation/{conversationId}")]
+        public async Task<ActionResult<IEnumerable<AnswerDTO>>> GetAnswersByConversationId(int conversationId)
+        {
+            var answers = await _answerRepository.GetAll();
+            if (answers == null || !answers.Any())
+            {
+                return NotFound();
+            }
+
+            var filteredAnswers = answers.Where(a => a.ConversationId == conversationId).ToList();
+
+            if (!filteredAnswers.Any())
+            {
+                return NotFound(); 
+            }
+
+            var answer_ = _mapper.Map<IEnumerable<AnswerDTO>>(filteredAnswers);
+            return Ok(answer_);
+        }
+
         [HttpPost]
         public async Task<ActionResult<AnswerDTO>> PostAnswer(AnswerDTO answerDTO)
         {
