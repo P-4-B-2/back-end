@@ -34,113 +34,30 @@ namespace backend.DAL.Data
 
             // Conversations
             modelBuilder.Entity<Conversation>().HasData(
-                new Conversation
-                {
-                    Id = 1,
-                    start_datetime = new DateTime(2025, 01, 01, 10, 0, 0),
-                    end_datetime = new DateTime(2025, 01, 01, 10, 30, 0),
-                    sentiment = 1,
-                    summary = "First conversation summary",
-                    BenchId = 1
-                },
-                new Conversation
-                {
-                    Id = 2,
-                    start_datetime = new DateTime(2025, 01, 02, 11, 0, 0),
-                    end_datetime = new DateTime(2025, 01, 02, 11, 20, 0),
-                    sentiment = 0,
-                    summary = "Second conversation summary",
-                    BenchId = 2
-                },
-                new Conversation
-                {
-                    Id = 3,
-                    start_datetime = new DateTime(2025, 01, 02, 12, 0, 0),
-                    end_datetime = new DateTime(2025, 01, 02, 12, 20, 0),
-                    sentiment = 0,
-                    summary = "Third conversation summary",
-                    BenchId = 2
-                }
+                new Conversation { Id = 1, start_datetime = new DateTime(2025, 01, 01, 10, 0, 0), end_datetime = new DateTime(2025, 01, 01, 10, 30, 0), sentiment = 85, summary = "First conversation summary", BenchId = 1 },
+                new Conversation { Id = 2, start_datetime = new DateTime(2025, 01, 02, 11, 0, 0), end_datetime = new DateTime(2025, 01, 02, 11, 20, 0), sentiment = 60, summary = "Second conversation summary", BenchId = 2 },
+                new Conversation { Id = 3, start_datetime = new DateTime(2025, 01, 02, 12, 0, 0), end_datetime = new DateTime(2025, 01, 02, 12, 20, 0), sentiment = 40, summary = "Third conversation summary", BenchId = 2 },
+                new Conversation { Id = 4, start_datetime = new DateTime(2025, 01, 03, 14, 0, 0), end_datetime = new DateTime(2025, 01, 03, 14, 45, 0), sentiment = 70, summary = "Fourth conversation summary", BenchId = 1 },
+                new Conversation { Id = 5, start_datetime = new DateTime(2025, 01, 04, 15, 0, 0), end_datetime = new DateTime(2025, 01, 04, 15, 30, 0), sentiment = 30, summary = "Fifth conversation summary", BenchId = 2 },
+                new Conversation { Id = 6, start_datetime = new DateTime(2025, 01, 05, 16, 0, 0), end_datetime = new DateTime(2025, 01, 05, 16, 20, 0), sentiment = 90, summary = "Sixth conversation summary", BenchId = 1 }
             );
 
             // Questions
             modelBuilder.Entity<Question>().HasData(
-                new Question
-                {
-                    Id = 1,
-                    Text = "What do you think about this neighbourhood?",
-                    MadeAt = new DateTime(2025, 01, 01, 9, 0, 0),
-                    IsActive = true,
-                    OrderNumber = 1
-                },
-                new Question
-                {
-                    Id = 2,
-                    Text = "What new features do you think this village need?",
-                    MadeAt = new DateTime(2025, 01, 01, 9, 5, 0),
-                    IsActive = true,
-                    OrderNumber = 2
-                },
-                new Question
-                {
-                    Id = 3,
-                    Text = "Do you think that our townhall is modern enough?",
-                    MadeAt = new DateTime(2025, 01, 01, 9, 8, 0),
-                    IsActive = false,
-                    OrderNumber = 3
-                },
-                new Question
-                {
-                    Id = 4,
-                    Text = "Does our local park need a new extention?",
-                    MadeAt = new DateTime(2025, 01, 02, 9, 8, 0),
-                    IsActive = false,
-                    OrderNumber = 4
-                },
-                new Question
-                {
-                    Id = 5,
-                    Text = "What do you think of our local museum?",
-                    MadeAt = new DateTime(2025, 01, 03, 9, 8, 0),
-                    IsActive = false,
-                    OrderNumber = 5
-                }
+                new Question { Id = 1, Text = "What do you think about this neighbourhood?", MadeAt = new DateTime(2025, 01, 01, 9, 0, 0), IsActive = true, OrderNumber = 1 },
+                new Question { Id = 2, Text = "What new features do you think this village needs?", MadeAt = new DateTime(2025, 01, 01, 9, 5, 0), IsActive = true, OrderNumber = 2 }
             );
 
             // Answers
             modelBuilder.Entity<Answer>().HasData(
-                new Answer
-                {
-                    Id = 1,
-                    Response = "It's nice and peaceful.",
-                    ConversationId = 1,
-                    QuestionId = 1
-                },
-                new Answer
-                {
-                    Id = 2,
-                    Response = "Maybe more greens, vegetation would be nice.",
-                    ConversationId = 1,
-                    QuestionId = 2
-                }
+                new Answer { Id = 1, Response = "It's nice and peaceful.", ConversationId = 1, QuestionId = 1 },
+                new Answer { Id = 2, Response = "Maybe more greens, vegetation would be nice.", ConversationId = 1, QuestionId = 2 }
             );
 
             // Histories
             modelBuilder.Entity<History>().HasData(
-                new History
-                {
-                    Id = 1,
-                    BenchId = 1,
-                    LocationId = 1,
-                    StatusId = 1
-                },
-                new History
-                {
-                    Id = 2,
-                    BenchId = 2,
-                    LocationId = 2,
-                    StatusId = 2
-                }
+                new History { Id = 1, BenchId = 1, LocationId = 1, StatusId = 1 },
+                new History { Id = 2, BenchId = 2, LocationId = 2, StatusId = 2 }
             );
         }
     }
