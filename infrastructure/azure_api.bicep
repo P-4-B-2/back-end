@@ -32,6 +32,12 @@ resource p4_api 'Microsoft.Web/sites@2024-04-01' = {
   properties: {
     serverFarmId: app_service_plan.id
     siteConfig: {
+      cors: {
+        allowedOrigins: [
+          '*'
+        ]
+        supportCredentials: false
+      }
       appSettings: [
         {
           name: 'SQL_CONNECTION_STRING'
