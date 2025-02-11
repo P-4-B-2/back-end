@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace backend.Migrations
 {
     /// <inheritdoc />
-    public partial class Test : Migration
+    public partial class @new : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -149,7 +149,8 @@ namespace backend.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Response = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ConversationId = table.Column<int>(type: "int", nullable: false),
-                    QuestionId = table.Column<int>(type: "int", nullable: false)
+                    QuestionId = table.Column<int>(type: "int", nullable: false),
+                    Keywords = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -237,11 +238,11 @@ namespace backend.Migrations
 
             migrationBuilder.InsertData(
                 table: "Answers",
-                columns: new[] { "Id", "ConversationId", "QuestionId", "Response" },
+                columns: new[] { "Id", "ConversationId", "Keywords", "QuestionId", "Response" },
                 values: new object[,]
                 {
-                    { 1, 1, 1, "It's nice and peaceful." },
-                    { 2, 1, 2, "Maybe more greens, vegetation would be nice." }
+                    { 1, 1, null, 1, "It's nice and peaceful." },
+                    { 2, 1, null, 2, "Maybe more greens, vegetation would be nice." }
                 });
 
             migrationBuilder.CreateIndex(

@@ -12,8 +12,8 @@ using backend.DAL.Data;
 namespace backend.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250210091518_Test")]
-    partial class Test
+    [Migration("20250211122304_new")]
+    partial class @new
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -35,6 +35,9 @@ namespace backend.Migrations
 
                     b.Property<int>("ConversationId")
                         .HasColumnType("int");
+
+                    b.Property<string>("Keywords")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("QuestionId")
                         .HasColumnType("int");
