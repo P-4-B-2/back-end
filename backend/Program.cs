@@ -51,7 +51,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowFrontendLocalhost", builder =>
+    options.AddPolicy("AllowNetlify", builder =>
     {
         builder.WithOrigins("https://frankthebank.netlify.app/")
                .AllowAnyMethod()
