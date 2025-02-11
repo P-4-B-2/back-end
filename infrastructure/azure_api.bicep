@@ -8,6 +8,8 @@ param sql_password string
 param api_name string
 param asp_name string
 param azure_location string = 'northeurope' // Default location, can be overridden
+@secure()
+param ai_api_key string
 
 resource app_service_plan 'Microsoft.Web/serverfarms@2022-09-01' = {
   name: asp_name
@@ -42,6 +44,9 @@ resource p4_api 'Microsoft.Web/sites@2024-04-01' = {
         {
           name: 'SQL_CONNECTION_STRING'
           value: 'Server=tcp:${sql_server}.${environment().suffixes.sqlServerHostname},1433;Initial Catalog=${sql_database};Persist Security Info=False;User ID=${sql_admin};Password=${sql_password};MultipleActiveResultSets=False;Encrypt=true;TrustServerCertificate=False;Connection Timeout=30;'
+        }, {
+          name: 'AI__ApiKey'
+          value: ai_api_key
         }
       ]
     }
