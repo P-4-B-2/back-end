@@ -53,7 +53,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontendLocalhost", builder =>
     {
-        builder.WithOrigins("http://localhost:4200")
+        builder.WithOrigins("https://frankthebank.netlify.app/")
                .AllowAnyMethod()
                .AllowAnyHeader();
     });
@@ -82,7 +82,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseCors("AllowFrontendLocalhost");
+app.UseCors("AllowNetlify");
 app.UseHttpsRedirection();
 
 app.UseAuthentication();
