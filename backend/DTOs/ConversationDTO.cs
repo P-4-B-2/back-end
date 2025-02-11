@@ -1,4 +1,6 @@
-﻿namespace backend.DTOs
+﻿using backend.DAL.Models;
+
+namespace backend.DTOs
 {
     public class ConversationDTO
     {
@@ -8,5 +10,6 @@
         public int? Sentiment { get; set; }
         public string? Summary { get; set; }
         public int BenchId { get; set; }
+        public ICollection<Answer>? Answers { get; set; }
     }
 }
