@@ -49,31 +49,32 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 //builder.Services.AddCors(); 
 
-// Configure CORS
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowFrontend", builder =>
+    options.AddPolicy("AllowFrontendLocalhost", builder =>
     {
-        builder.WithOrigins(
-                "https://frankthebank.netlify.app",  // Production
-                "http://localhost:3000",            // Local development
-                "http://127.0.0.1:3000"             // Alternative localhost
-            )
-            .AllowAnyMethod()
-            .AllowAnyHeader()
-            .AllowCredentials(); // Only if using cookies/auth headers
+        builder.WithOrigins("https://frankthebank.netlify.app/")
+               .AllowAnyMethod()
+               .AllowAnyHeader();
     });
 });
 
-// ...
+builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", policy =>
+    {
+        policy.AllowAnyOrigin()
+              .AllowAnyMethod()
+              .AllowAnyHeader();
+    });
+});
 
 var app = builder.Build();
 
-// MIDDLEWARE ORDER MATTERS! This should come:
-// - After UseRouting
-// - Before UseAuthorization
-// - Before MapControllers
-app.UseCors("AllowFrontend");
+app.UseCors("AllowAll");
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
