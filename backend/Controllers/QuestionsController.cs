@@ -9,9 +9,9 @@ using AutoMapper;
 
 namespace backend.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
     public class QuestionsController : ControllerBase
     {
         private readonly IGenericRepository<Question> _questionRepository;

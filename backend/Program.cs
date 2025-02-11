@@ -82,7 +82,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseCors("AllowNetlify");
+app.UseCors("AllowFrontendLocalhost");
 app.UseHttpsRedirection();
 
 app.UseAuthentication();
