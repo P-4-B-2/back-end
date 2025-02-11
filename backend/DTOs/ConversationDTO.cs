@@ -10,6 +10,5 @@ namespace backend.DTOs
         public int? Sentiment { get; set; }
         public string? Summary { get; set; }
         public int BenchId { get; set; }
-        public ICollection<Answer>? Answers { get; set; }
     }
 }
