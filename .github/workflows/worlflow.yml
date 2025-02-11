@@ -2,7 +2,7 @@ name: Trigger Auto Deployment
 
 on:
   push:
-    branches: [ bw-pipeline ] # replace with `main` after testing
+    branches: [ main ]
 
 env:
   AZURE_WEBAPP_PACKAGE_PATH: backend/publish
