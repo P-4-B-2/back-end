@@ -32,7 +32,7 @@ params.json
 .settings
 .springBeans
 .sts4-cache
-
+appsettings.json
 
 # User-specific files
 .vs/

@@ -34,12 +34,12 @@ namespace backend.DAL.Data
 
             // Conversations
             modelBuilder.Entity<Conversation>().HasData(
-                new Conversation { Id = 1, start_datetime = new DateTime(2025, 01, 01, 10, 0, 0), end_datetime = new DateTime(2025, 01, 01, 10, 30, 0), sentiment = 85, summary = "First conversation summary", BenchId = 1 },
-                new Conversation { Id = 2, start_datetime = new DateTime(2025, 01, 02, 11, 0, 0), end_datetime = new DateTime(2025, 01, 02, 11, 20, 0), sentiment = 60, summary = "Second conversation summary", BenchId = 2 },
-                new Conversation { Id = 3, start_datetime = new DateTime(2025, 01, 02, 12, 0, 0), end_datetime = new DateTime(2025, 01, 02, 12, 20, 0), sentiment = 40, summary = "Third conversation summary", BenchId = 2 },
-                new Conversation { Id = 4, start_datetime = new DateTime(2025, 01, 03, 14, 0, 0), end_datetime = new DateTime(2025, 01, 03, 14, 45, 0), sentiment = 70, summary = "Fourth conversation summary", BenchId = 1 },
-                new Conversation { Id = 5, start_datetime = new DateTime(2025, 01, 04, 15, 0, 0), end_datetime = new DateTime(2025, 01, 04, 15, 30, 0), sentiment = 30, summary = "Fifth conversation summary", BenchId = 2 },
-                new Conversation { Id = 6, start_datetime = new DateTime(2025, 01, 05, 16, 0, 0), end_datetime = new DateTime(2025, 01, 05, 16, 20, 0), sentiment = 90, summary = "Sixth conversation summary", BenchId = 1 }
+                new Conversation { Id = 1, StartDatetime = new DateTime(2025, 01, 01, 10, 0, 0), EndDatetime = new DateTime(2025, 01, 01, 10, 30, 0), Sentiment = 85, Summary = "First conversation summary", BenchId = 1 },
+                new Conversation { Id = 2, StartDatetime = new DateTime(2025, 01, 02, 11, 0, 0), EndDatetime = new DateTime(2025, 01, 02, 11, 20, 0), Sentiment = 60, Summary = "Second conversation summary", BenchId = 2 },
+                new Conversation { Id = 3, StartDatetime = new DateTime(2025, 01, 02, 12, 0, 0), EndDatetime = new DateTime(2025, 01, 02, 12, 20, 0), Sentiment = 40, Summary = "Third conversation summary", BenchId = 2 },
+                new Conversation { Id = 4, StartDatetime = new DateTime(2025, 01, 03, 14, 0, 0), EndDatetime = new DateTime(2025, 01, 03, 14, 45, 0), Sentiment = 70, Summary = "Fourth conversation summary", BenchId = 1 },
+                new Conversation { Id = 5, StartDatetime = new DateTime(2025, 01, 04, 15, 0, 0), EndDatetime = new DateTime(2025, 01, 04, 15, 30, 0), Sentiment = 30, Summary = "Fifth conversation summary", BenchId = 2 },
+                new Conversation { Id = 6, StartDatetime = new DateTime(2025, 01, 05, 16, 0, 0), EndDatetime = new DateTime(2025, 01, 05, 16, 20, 0), Sentiment = 90, Summary = "Sixth conversation summary", BenchId = 1 }
             );
 
             // Questions
