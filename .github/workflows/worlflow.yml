@@ -71,10 +71,10 @@ jobs:
               "sql_database": { "value": "${{ secrets.AZURE_DATABASE }}" },
               "sql_admin": { "value": "${{ secrets.AZURE_SQL_ADMIN }}" },
               "sql_password": { "value": "${{ secrets.AZURE_SQL_PASSWORD }}" },
-              "api_name": { "value": "${{ secrets.AZURE_WEBAPP_NAME }}"},
-              "asp_name": { "value": "${{ secrets.AZURE_APP_SERVICE }}"},
-              "rg_name": { "value": "${{ secrets.AZURE_RESOURCE_GROUP }}" }
-              "ai_api_key": { "value": "${{secrets.AITOKENAPIKEY}}"}
+              "api_name": { "value": "${{ secrets.AZURE_WEBAPP_NAME }}" },
+              "asp_name": { "value": "${{ secrets.AZURE_APP_SERVICE }}" },
+              "rg_name": { "value": "${{ secrets.AZURE_RESOURCE_GROUP }}" },
+              "ai_api_key": { "value": "${{secrets.AITOKENAPIKEY}}" }
             }
           }
           EOF
