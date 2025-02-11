@@ -9,6 +9,8 @@ param sql_database string
 param rg_name string
 param api_name string
 param asp_name string
+@secure()
+param ai_api_key string
 
 // Resource Group Module
 module rgModule './azure_rg.bicep' = {
@@ -47,6 +49,7 @@ module apiModule './azure_api.bicep' = {
     sql_password: sql_password
     api_name: api_name
     asp_name: asp_name
+    ai_api_key : ai_api_key
   }
   dependsOn: [
     rgModule, sqlModule

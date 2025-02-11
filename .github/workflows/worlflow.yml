@@ -74,6 +74,7 @@ jobs:
               "api_name": { "value": "${{ secrets.AZURE_WEBAPP_NAME }}"},
               "asp_name": { "value": "${{ secrets.AZURE_APP_SERVICE }}"},
               "rg_name": { "value": "${{ secrets.AZURE_RESOURCE_GROUP }}" }
+              "ai_api_key": { "value": "${{secrets.AITOKENAPIKEY}}"}
             }
           }
           EOF
