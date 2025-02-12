@@ -66,6 +66,17 @@ namespace backend.Controllers
             var question = _mapper.Map<Question>(questionDTO);
             question.IsActive = true;
 
+            if (question.MadeAt == default)
+            {
+                question.MadeAt = DateTime.UtcNow;
+            }
+
+            var activeQuestions = await _questionRepository.GetByCondition(q => q.IsActive);
+            var maxOrderNumber = activeQuestions.Any() ? activeQuestions.Max(q => q.OrderNumber) : 0;
+
+            question.OrderNumber = maxOrderNumber + 1;
+
+            // only inrements on active questions so duplicate orderNumbers are possible on the normal questions endpoint
             await _questionRepository.Insert(question);
             await _questionRepository.Save();
 
