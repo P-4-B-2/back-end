@@ -43,7 +43,10 @@ namespace backend.Controllers
             {
                 return NotFound();
             }
-            var activeQuestions_ = _mapper.Map<IEnumerable<QuestionDTO>>(activeQuestions);
+
+            var orderedActiveQuestions = activeQuestions.OrderBy(q => q.OrderNumber).ToList();
+
+            var activeQuestions_ = _mapper.Map<IEnumerable<QuestionDTO>>(orderedActiveQuestions);
             return Ok(activeQuestions_);
         }
 
