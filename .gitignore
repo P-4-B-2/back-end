@@ -48,8 +48,8 @@ params.json
 # ASP.NET Core specific files
 project.lock.json
 project.fragment.lock.json
-appsettings.json
-appsettings.Development.json
+backend/appsettings.json
+backend/appsettings.Development.json
 
 # .NET Core tool folders
 !.dotnet/
