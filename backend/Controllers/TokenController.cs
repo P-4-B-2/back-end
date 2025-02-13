@@ -10,7 +10,6 @@ namespace backend.Controllers
     public class TokenController : ControllerBase
     {
         private readonly IConfiguration _configuration;
-        private const string AiApiKeyConfigKey = "AI__ApiKey";
 
         public TokenController(IConfiguration configuration)
         {
@@ -20,7 +19,7 @@ namespace backend.Controllers
         [HttpPost("generate")]
         public async Task<IActionResult> GenerateAiToken([FromBody] AiAuthRequest request)
         {
-            var aiApiKey = _configuration[AiApiKeyConfigKey];
+            var aiApiKey = _configuration["AI__ApiKey"];
             if (request.ApiKey != aiApiKey)
             {
                 return Unauthorized(new { message = "Invalid API key." });
