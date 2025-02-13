@@ -2,6 +2,7 @@
 using System;
 using backend.DAL.Data;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace backend.DAL.Repository
 {
@@ -56,5 +57,14 @@ namespace backend.DAL.Repository
             return await Task.Run(() => _context.Set<T>().Where(predicate).ToList());
         }
 
+        //public async Task<IEnumerable<T>> GetAllIncluding(params Expression<Func<T, object>>[] includeProperties)
+        //{
+        //    IQueryable<T> query = _dbSet;
+        //    foreach (var includeProperty in includeProperties)
+        //    {
+        //        query = query.Include(includeProperty);
+        //    }
+        //    return await query.ToListAsync();
+        //}
     }
 }

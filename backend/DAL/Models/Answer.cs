@@ -22,7 +22,7 @@ namespace backend.DAL.Models
 
         [JsonIgnore]
         public Question? Question { get; set; }
-        
 
+        public List<string>? Keywords { get; set; }
     }
 }

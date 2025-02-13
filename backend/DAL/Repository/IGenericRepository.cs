@@ -1,4 +1,6 @@
-﻿namespace backend.DAL.Repository
+﻿using System.Linq.Expressions;
+
+namespace backend.DAL.Repository
 {
     public interface IGenericRepository<T> where T : class
     {
@@ -9,6 +11,6 @@
         Task Update(T obj);
         Task Save();
         Task<IEnumerable<T>> GetByCondition(Func<T, bool> predicate);
-
+        //Task<IEnumerable<T>> GetAllIncluding(params Expression<Func<T, object>>[] includeProperties);
     }
 }

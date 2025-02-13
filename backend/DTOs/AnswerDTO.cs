@@ -6,5 +6,7 @@
         public string Response { get; set; }
         public int ConversationId { get; set; }
         public int QuestionId { get; set; }
+        public List<string>? Keywords { get; set; }
+
     }
 }

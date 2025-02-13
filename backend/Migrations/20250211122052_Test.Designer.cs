@@ -12,7 +12,7 @@ using backend.DAL.Data;
 namespace backend.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250210091518_Test")]
+    [Migration("20250211122052_Test")]
     partial class Test
     {
         /// <inheritdoc />
@@ -35,6 +35,9 @@ namespace backend.Migrations
 
                     b.Property<int>("ConversationId")
                         .HasColumnType("int");
+
+                    b.Property<string>("Keywords")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("QuestionId")
                         .HasColumnType("int");
