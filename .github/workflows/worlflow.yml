@@ -29,9 +29,9 @@ jobs:
         id: check-resources
         run: |
           set -e
-          RG_EXISTS=$(az group exists --name ${{ secrets.AZURE_RESOURCE_GROUP }})
-          APP_EXISTS=$(az webapp show --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }} --name ${{ secrets.AZURE_APP_SERVICE }} --query "id" --output tsv --only-show-errors || echo "false")
-          DB_EXISTS=$(az sql db show --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }} --server ${{ secrets.AZURE_SQL_SERVER }} --name ${{ secrets.AZURE_DATABASE }} --query "id" --output tsv --only-show-errors || echo "false")
+          RG_EXISTS=$(az group exists --name ${{ vars.AZURE_RESOURCE_GROUP }})
+          APP_EXISTS=$(az webapp show --resource-group ${{ vars.AZURE_RESOURCE_GROUP }} --name ${{ vars.AZURE_APP_SERVICE }} --query "id" --output tsv --only-show-errors || echo "false")
+          DB_EXISTS=$(az sql db show --resource-group ${{ vars.AZURE_RESOURCE_GROUP }} --server ${{ vars.AZURE_SQL_SERVER }} --name ${{ vars.AZURE_DATABASE }} --query "id" --output tsv --only-show-errors || echo "false")
 
           if [[ "$RG_EXISTS" == "false" || "$APP_EXISTS" == "false" || "$DB_EXISTS" == "false" ]]; then
             echo "PROVISION_REQUIRED=true" >> $GITHUB_OUTPUT
@@ -67,14 +67,17 @@ jobs:
             "contentVersion": "1.0.0.0",
             "parameters": {
               "azure_location": { "value": "${{ vars.AZURE_LOCATION }}" },
-              "sql_server": { "value": "${{ secrets.AZURE_SQL_SERVER }}" },
-              "sql_database": { "value": "${{ secrets.AZURE_DATABASE }}" },
+              "sql_server": { "value": "${{ vars.AZURE_SQL_SERVER }}" },
+              "sql_database": { "value": "${{ vars.AZURE_DATABASE }}" },
               "sql_admin": { "value": "${{ secrets.AZURE_SQL_ADMIN }}" },
               "sql_password": { "value": "${{ secrets.AZURE_SQL_PASSWORD }}" },
-              "api_name": { "value": "${{ secrets.AZURE_WEBAPP_NAME }}" },
-              "asp_name": { "value": "${{ secrets.AZURE_APP_SERVICE }}" },
-              "rg_name": { "value": "${{ secrets.AZURE_RESOURCE_GROUP }}" },
-              "ai_api_key": { "value": "${{secrets.AITOKENAPIKEY}}" }
+              "api_name": { "value": "${{ vars.AZURE_WEBAPP_NAME }}" },
+              "asp_name": { "value": "${{ vars.AZURE_APP_SERVICE }}" },
+              "rg_name": { "value": "${{ vars.AZURE_RESOURCE_GROUP }}" },
+              "ai_api_key": { "value": "${{secrets.AITOKENAPIKEY}}" },
+              "environment_name": { "value": "${{ vars.ENV_NAME }}" },
+              "job_name": { "value": "${{ vars.JOB_NAME }}" },
+              "docker_image": { "value": "${{ vars.DOCKER_IMAGE }}" }
             }
           }
           EOF
@@ -135,7 +138,7 @@ jobs:
       - name: Deploy to Azure WebApp
         uses: azure/webapps-deploy@v2
         with:
-          app-name: ${{ secrets.AZURE_WEBAPP_NAME }}
+          app-name: ${{ vars.AZURE_WEBAPP_NAME }}
           package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
         
       - name: Azure Logout
