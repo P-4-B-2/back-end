@@ -67,14 +67,17 @@ jobs:
             "contentVersion": "1.0.0.0",
             "parameters": {
               "azure_location": { "value": "${{ vars.AZURE_LOCATION }}" },
-              "sql_server": { "value": "${{ secrets.AZURE_SQL_SERVER }}" },
-              "sql_database": { "value": "${{ secrets.AZURE_DATABASE }}" },
+              "sql_server": { "value": "${{ vars.AZURE_SQL_SERVER }}" },
+              "sql_database": { "value": "${{ vars.AZURE_DATABASE }}" },
               "sql_admin": { "value": "${{ secrets.AZURE_SQL_ADMIN }}" },
               "sql_password": { "value": "${{ secrets.AZURE_SQL_PASSWORD }}" },
-              "api_name": { "value": "${{ secrets.AZURE_WEBAPP_NAME }}" },
-              "asp_name": { "value": "${{ secrets.AZURE_APP_SERVICE }}" },
-              "rg_name": { "value": "${{ secrets.AZURE_RESOURCE_GROUP }}" },
-              "ai_api_key": { "value": "${{secrets.AITOKENAPIKEY}}" }
+              "api_name": { "value": "${{ vars.AZURE_WEBAPP_NAME }}" },
+              "asp_name": { "value": "${{ vars.AZURE_APP_SERVICE }}" },
+              "rg_name": { "value": "${{ vars.AZURE_RESOURCE_GROUP }}" },
+              "ai_api_key": { "value": "${{secrets.AITOKENAPIKEY}}" },
+              "environment_name": { "value": "${{ vars.ENV_NAME }}" },
+              "job_name": { "value": "${{ vars.JOB_NAME }}" },
+              "docker_image": { "value": "${{ vars.DOCKER_IMAGE }}" }
             }
           }
           EOF

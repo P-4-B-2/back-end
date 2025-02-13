@@ -11,6 +11,9 @@ param api_name string
 param asp_name string
 @secure()
 param ai_api_key string
+param environment_name string
+param job_name string
+param docker_image string
 
 // Resource Group Module
 module rgModule './azure_rg.bicep' = {
@@ -53,5 +56,20 @@ module apiModule './azure_api.bicep' = {
   }
   dependsOn: [
     rgModule, sqlModule
+  ]
+}
+
+// AI Module
+module aiModule './azure_ai.bicep' = {
+  scope: resourceGroup(rg_name)
+  name: 'aiDeployment'
+  params: {
+    azure_location: azure_location
+    environment_name: environment_name
+    job_name: job_name
+    docker_image: docker_image
+  }
+  dependsOn: [
+    rgModule, apiModule
   ]
 }
