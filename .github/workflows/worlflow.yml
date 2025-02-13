@@ -29,9 +29,9 @@ jobs:
         id: check-resources
         run: |
           set -e
-          RG_EXISTS=$(az group exists --name ${{ secrets.AZURE_RESOURCE_GROUP }})
-          APP_EXISTS=$(az webapp show --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }} --name ${{ secrets.AZURE_APP_SERVICE }} --query "id" --output tsv --only-show-errors || echo "false")
-          DB_EXISTS=$(az sql db show --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }} --server ${{ secrets.AZURE_SQL_SERVER }} --name ${{ secrets.AZURE_DATABASE }} --query "id" --output tsv --only-show-errors || echo "false")
+          RG_EXISTS=$(az group exists --name ${{ vars.AZURE_RESOURCE_GROUP }})
+          APP_EXISTS=$(az webapp show --resource-group ${{ vars.AZURE_RESOURCE_GROUP }} --name ${{ vars.AZURE_APP_SERVICE }} --query "id" --output tsv --only-show-errors || echo "false")
+          DB_EXISTS=$(az sql db show --resource-group ${{ vars.AZURE_RESOURCE_GROUP }} --server ${{ vars.AZURE_SQL_SERVER }} --name ${{ vars.AZURE_DATABASE }} --query "id" --output tsv --only-show-errors || echo "false")
 
           if [[ "$RG_EXISTS" == "false" || "$APP_EXISTS" == "false" || "$DB_EXISTS" == "false" ]]; then
             echo "PROVISION_REQUIRED=true" >> $GITHUB_OUTPUT
@@ -138,7 +138,7 @@ jobs:
       - name: Deploy to Azure WebApp
         uses: azure/webapps-deploy@v2
         with:
-          app-name: ${{ secrets.AZURE_WEBAPP_NAME }}
+          app-name: ${{ vars.AZURE_WEBAPP_NAME }}
           package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
         
       - name: Azure Logout
