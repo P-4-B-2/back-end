@@ -10,7 +10,7 @@ namespace backend.Controllers
     public class TokenController : ControllerBase
     {
         private readonly IConfiguration _configuration;
-        private const string AiApiKeyConfigKey = "AI:ApiKey";
+        private const string AiApiKeyConfigKey = "AI__ApiKey";
 
         public TokenController(IConfiguration configuration)
         {
@@ -41,6 +41,6 @@ namespace backend.Controllers
 
     public class AiAuthRequest
     {
-        public string ApiKey { get; set; }
+        public string? ApiKey { get; set; }
     }
 }

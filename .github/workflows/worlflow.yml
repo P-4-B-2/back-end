@@ -12,6 +12,7 @@ env:
   CONFIGURATION: Release
   DOTNET_CORE_VERSION: 8.0.x
   WORKING_DIRECTORY: backend
+  AI__ApiKey: ${{ secrets.AITOKENAPIKEY }}
  
 jobs:
 

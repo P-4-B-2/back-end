@@ -9,14 +9,17 @@ namespace backend.Firebase
 {
     public class FirebaseAuthenticationHandler : AuthenticationHandler<AuthenticationSchemeOptions>
     {
-        private const string AiApiKey = "your-static-api-key";
+        // private const string AiApiKey = "your-static-api-key";
+        private readonly IConfiguration _configuration;
 
         public FirebaseAuthenticationHandler(
             IOptionsMonitor<AuthenticationSchemeOptions> options,
             ILoggerFactory logger,
-            UrlEncoder encoder)
+            UrlEncoder encoder,
+            IConfiguration configuration)
             : base(options, logger, encoder)
         {
+            _configuration = configuration;
         }
 
         protected override async Task<AuthenticateResult> HandleAuthenticateAsync()
@@ -27,6 +30,7 @@ namespace backend.Firebase
             }
 
             string token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+            string AiApiKey = _configuration["AI__ApiKey"];
 
             if (token == AiApiKey)
             {
