@@ -25,7 +25,7 @@ namespace backend.Controllers
             }
 
             var expectedToken = _configuration["AI__ApiKey"];
-            Console.WriteLine(expectedToken);
+            //Console.WriteLine(expectedToken);
             
             if (string.IsNullOrEmpty(expectedToken))
             {
