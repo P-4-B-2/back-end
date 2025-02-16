@@ -16,23 +16,29 @@ namespace backend.Controllers
             _configuration = configuration;
         }
 
-        [HttpPost("generate")]
+        [HttpGet("generate")]
         public async Task<IActionResult> GenerateAiToken([FromBody] AiAuthRequest request)
         {
-            var aiApiKey = _configuration["AI__ApiKey"];
-            if (request.ApiKey != aiApiKey)
+            if (!Request.Headers.TryGetValue("Handshake-Token", out var providedToken))
             {
-                return Unauthorized(new { message = "Invalid API key." });
+                return Unauthorized(new { message = "Missing handshake token." });
             }
 
-            string aiUid = "ai-service";
-
-            var additionalClaims = new Dictionary<string, object>
+            var expectedToken = _configuration["AI__ApiKey"];
+            Console.WriteLine(expectedToken);
+            
+            if (string.IsNullOrEmpty(expectedToken))
             {
-                { "role", "AI" }
-            };
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    new { message = "Server handshake token is not configured." });
+            }
 
-            string token = await FirebaseAuth.DefaultInstance.CreateCustomTokenAsync(aiUid, additionalClaims);
+            if (providedToken != expectedToken)
+            {
+                return Unauthorized(new { message = "Invalid handshake token. provided token: " + providedToken + ", expected token: " + expectedToken});
+            }
+
+            string token = await FirebaseAuth.DefaultInstance.CreateCustomTokenAsync("neKcRwZ7cANUkV6Hi9yneIjYoCs2");
 
             return Ok(new { token });
         }
